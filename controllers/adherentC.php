@@ -11,7 +11,7 @@
                 $liste = $db->query($sql);
                 return $liste;
             } catch(Exception $e){
-				die('Erreur:'. $e->getMeesage());
+				$e->getMessage();
 			}
         }
 
@@ -31,7 +31,7 @@
                     'DateInscription' => $adherent->getDateInscription(),
                 ]);
             } catch(Exception $e){
-				echo e;
+				$e->getMessage();
 			}
         }
 
@@ -44,7 +44,7 @@
                 $query->bindValue(':NumAdherent',$NumAdherent);
                 $query->execute();
             }catch(Exception $e){
-				echo e;
+				$e->getMessage();
 			}
         }
         /*
