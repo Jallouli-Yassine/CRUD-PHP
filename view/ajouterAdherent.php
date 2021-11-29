@@ -1,3 +1,4 @@
+
 <?php 
     require_once"./../controllers/adherentC.php";
     require_once"./../model/adherentM.php";
@@ -7,14 +8,17 @@
             && isset($_POST['Prenom']) 
             && isset($_POST['Adresse']) 
             && isset($_POST['Email']) 
-            && isset($_POST['DateInscription']) ){
+            && isset($_POST['DateInscription'])
+            && isset($_POST['password']))
+            {
 
         if( !empty($_POST['NumAdherent'])&&
             !empty($_POST['Nom'])&&
             !empty($_POST['Prenom'])&&
             !empty($_POST['Adresse'])&&
             !empty($_POST['Email'])&&
-            !empty($_POST['DateInscription']))
+            !empty($_POST['DateInscription'])&&
+            !empty($_POST['password']))
             {
                 $adherentC = new AdherentC();
                 $adherent = new Adherent($_POST['NumAdherent'],
@@ -22,7 +26,9 @@
                 $_POST['Prenom'],
                 $_POST['Adresse'],
                 $_POST['Email'],
-                $_POST['DateInscription']);
+                $_POST['DateInscription'],
+                $_POST['password']
+            );
 
                 $adherentC->ajouterAdhérent($adherent);
 
@@ -73,6 +79,10 @@
             <div class="form-outline">
                 <input name="Email" type="email" id="Email" class="form-control" />
                 <label class="form-label" for="Email">Email</label>
+            </div>
+            <div class="form-outline">
+                <input name="password" type="password" id="password" class="form-control" />
+                <label class="form-label" for="password">password</label>
             </div>
             <div class="form-outline">
 

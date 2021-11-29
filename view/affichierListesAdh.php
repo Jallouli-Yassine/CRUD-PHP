@@ -1,3 +1,13 @@
+
+<?php
+// On prolonge la session
+session_start();
+// On teste si la variable de session existe et contient une valeur
+if(empty($_SESSION['e'])){
+    // Si inexistante ou nulle, on redirige vers le formulaire de login
+    header('Location: connexion.php');
+}
+?>
 <?php 
     require_once "./../controllers/adherentC.php";
     $adherentC = new AdherentC();
@@ -31,6 +41,7 @@
                 <th>prenom</th>
                 <th>adresse</th>
                 <th>email</th>
+                <th>password</th>
                 <th>date inscription</th>
                 <th>delete</th>
                 <th>update</th>
@@ -51,6 +62,9 @@
                 </td>
                 <td>
                     <?php echo $adherent['Email'] ?>
+                </td>
+                <td>
+                    <?php echo $adherent['password'] ?>
                 </td>
                 <td>
                     <?php echo $adherent['DateInscription'] ?>

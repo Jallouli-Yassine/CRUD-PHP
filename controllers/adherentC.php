@@ -16,8 +16,8 @@
         }
 
         function ajouterAdhérent($adherent){
-            $sql = "INSERT INTO adherent(NumAdherent,Nom,Prenom,Adresse,Email,DateInscription)
-            VALUES(:NumAdherent,:Nom,:Prenom,:Adresse,:Email,:DateInscription)";
+            $sql = "INSERT INTO adherent(NumAdherent,Nom,Prenom,Adresse,Email,DateInscription,password)
+            VALUES(:NumAdherent,:Nom,:Prenom,:Adresse,:Email,:DateInscription,:password)";
 
             $db = config::getConnexion();
             try {
@@ -29,6 +29,7 @@
                     'Adresse' => $adherent->getAdresse(),
                     'Email' => $adherent->getEmail(),
                     'DateInscription' => $adherent->getDateInscription(),
+                    'password' => $adherent->getPassword(),
                 ]);
             } catch(Exception $e){
 				$e->getMessage();
@@ -55,18 +56,13 @@
 		function modifieradherent($adherent, $numadherent){
 			try {
 				$db = config::getConnexion();
-				/*
-				UPDATE adherent
-				SET Nom = 'testUpdate',
-					Prenom = 'jall',
-					Adresse = '49 Rue Ameline',
-					Email = 'testUpdate@gmail.com',
-					DateInscription = '2020-09-24'
-				WHERE NumAdherent = 8
-				*/
 				$query = $db->prepare(
 				'UPDATE adherent SET
-				Nom= :Nom, Prenom= :Prenom, Adresse= :Adresse, Email= :Email, DateInscription= :DateInscription
+				Nom= :Nom,
+				Prenom= :Prenom,
+				Adresse= :Adresse,
+				Email= :Email,
+				DateInscription= :DateInscription
 				WHERE NumAdherent= :NumAdherent');
 				$query->execute([
 					'Nom' => $adherent->getNom(),
@@ -96,6 +92,27 @@
 			catch (Exception $e){
 				echo $e->getMessage();
 			}
+        }
+
+        
+		function connexionUser($email,$password){
+            $sql="SELECT * FROM adherent WHERE Email='" . $email . "' and password = '". $password."'";
+            $db = config::getConnexion();
+            try{
+                $query=$db->prepare($sql);
+                $query->execute();
+                $count=$query->rowCount();
+                if($count==0) {
+                    $message = "pseudo ou le mot de passe est incorrect";
+                } else {
+                    $x=$query->fetch();
+                    $message = $x['role'];
+                }
+            }
+            catch (Exception $e){
+                    $message= " ".$e->getMessage();
+            }
+          return $message;
         }
     }
 ?>
