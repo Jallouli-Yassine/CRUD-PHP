@@ -27,7 +27,8 @@
                 $_POST['Adresse'],
                 $_POST['Email'],
                 $_POST['DateInscription'],
-                $_POST['password']
+                $_POST['password'],
+                "user"
             );
 
                 $adherentC->ajouterAdhérent($adherent);

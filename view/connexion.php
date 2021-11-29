@@ -11,8 +11,14 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
          $message=$userC->connexionUser($_POST["email"],$_POST["password"]);
          $_SESSION['e'] = $_POST["email"];// on stocke dans le tableau une colonne ayant comme nom "e",
         //  avec l'email à l'intérieur
+        $user=$userC->getOneAdherentEmail( $_POST["email"]);
+        $_SESSION['role'] = $user['role'];
         if($message!='pseudo ou le mot de passe est incorrect'){
+          if($_SESSION['role']==="user"){
            header('Location:user.php');
+          }else if($_SESSION['role']==="admin"){
+          header('Location: affichierListesAdh.php');
+          }
           }else{
             $message='pseudo ou le mot de passe est incorrect';
         }
@@ -20,6 +26,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     else
         $message = "Missing information";
       }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

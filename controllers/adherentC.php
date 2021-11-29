@@ -16,8 +16,8 @@
         }
 
         function ajouterAdhérent($adherent){
-            $sql = "INSERT INTO adherent(NumAdherent,Nom,Prenom,Adresse,Email,DateInscription,password)
-            VALUES(:NumAdherent,:Nom,:Prenom,:Adresse,:Email,:DateInscription,:password)";
+            $sql = "INSERT INTO adherent(NumAdherent,Nom,Prenom,Adresse,Email,DateInscription,password,role)
+            VALUES(:NumAdherent,:Nom,:Prenom,:Adresse,:Email,:DateInscription,:password,:role)";
 
             $db = config::getConnexion();
             try {
@@ -30,6 +30,7 @@
                     'Email' => $adherent->getEmail(),
                     'DateInscription' => $adherent->getDateInscription(),
                     'password' => $adherent->getPassword(),
+                    'role' => $adherent->getRole(),
                 ]);
             } catch(Exception $e){
 				$e->getMessage();
@@ -81,6 +82,20 @@
 
         function getOneAdherent($NumAdherent) {
 			$sql="SELECT * from adherent where NumAdherent=$NumAdherent";
+			$db = config::getConnexion();
+			try{
+				$query=$db->prepare($sql);
+				$query->execute();
+
+				$adherent=$query->fetch();
+				return $adherent;
+			}
+			catch (Exception $e){
+				echo $e->getMessage();
+			}
+        }
+        function getOneAdherentEmail($email) {
+			$sql="SELECT * from adherent where Email='$email'";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);

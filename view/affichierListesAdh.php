@@ -31,8 +31,13 @@ if(empty($_SESSION['e'])){
 <body>
 
     <div class="container pos">
-        <br><br>
+      
+    <form style="margin-left:100%" action="./deconnexion.php" method="post">
+    <input class="btn btn-danger mt-5" type="submit" value="Déconnexion">
+    </form>
+    <br><br>
         <a href="./ajouterAdherent.php" class="btn btn-primary">add adherent</a>
+
         <br><br>
         <table class="table">
             <tr>

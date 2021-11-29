@@ -7,20 +7,25 @@ class Adherent {
     private $Email;
     private $password;
     private $DateInscription;
+    private $role;
 
-    function __construct($NumAdherent,$Nom,$Prénom,$Adresse,$Email,$DateInscription,$password){
+    function __construct($NumAdherent,$Nom,$Prénom,$Adresse,$Email,$DateInscription,$password,$role){
         $this->NumAdherent=$NumAdherent;
         $this->Nom=$Nom;
+        $this->password=$password;
         $this->Prénom=$Prénom;
         $this->Adresse=$Adresse;
         $this->Email=$Email;
-        $this->password=$password;
+        $this->role=$role;
         $this->DateInscription=$DateInscription;
     }
 
     //GETTERS
     function getNumAdherent(){
         return $this->NumAdherent;
+    }
+    function getRole(){
+        return $this->role;
     }
     function getPassword(){
         return $this->password;
